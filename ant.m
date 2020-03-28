@@ -1,6 +1,6 @@
-mapSize = 1000;
+mapSize = 200;
 centerPosition = round(mapSize/2);
-[xCoordinates,yCoordinates] = meshgrid(0:mapSize-1,0:mapSize-1);
+% [xCoordinates,yCoordinates] = meshgrid(0:mapSize-1,0:mapSize-1);
 map = false(mapSize);
 position = [centerPosition centerPosition];
 direction = [1 0];
@@ -17,13 +17,17 @@ for i = 1:11000
     position = position + direction;
 end
 
-xBlackCoordinates = xCoordinates(map);
-yBlackCoordinates = yCoordinates(map);
+% xBlackCoordinates = xCoordinates(map);
+% yBlackCoordinates = yCoordinates(map);
 
-for ii = 1:length(xBlackCoordinates(:))
-    x = xBlackCoordinates(ii) + [0 1 1 0];
-    y = yBlackCoordinates(ii) + [0 0 1 1];
-    patch(x,y,'k','facealpha',1);
-end
+map = map(find(any(map'),1):find(any(map'),1,'last'),...
+    find(any(map),1):find(any(map),1,'last'));
+image(map,'CDataMapping','Scaled');
+
+% for ii = 1:length(xBlackCoordinates(:))
+%     x = xBlackCoordinates(ii) + [0 1 1 0];
+%     y = yBlackCoordinates(ii) + [0 0 1 1];
+%     patch(x,y,'k','facealpha',1);
+% end
 
 axis equal
